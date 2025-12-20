@@ -22,7 +22,7 @@ import org.spongepowered.asm.mixin.injection.At;
 public class AbstractFurnaceBlockEntityMixin {
 
     @WrapOperation(method = "serverTick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/entity/AbstractFurnaceBlockEntity;burn(Lnet/minecraft/core/RegistryAccess;Lnet/minecraft/world/item/crafting/RecipeHolder;Lnet/minecraft/world/item/crafting/SingleRecipeInput;Lnet/minecraft/core/NonNullList;I)Z"))
-    private static boolean a(RegistryAccess registryAccess, @Nullable RecipeHolder<? extends AbstractCookingRecipe> recipeHolder, SingleRecipeInput singleRecipeInput, NonNullList<ItemStack> nonNullList, int i, Operation<Boolean> original, @Local AbstractFurnaceBlockEntity abe) {
+    private static boolean burn(RegistryAccess registryAccess, @Nullable RecipeHolder<? extends AbstractCookingRecipe> recipeHolder, SingleRecipeInput singleRecipeInput, NonNullList<ItemStack> nonNullList, int i, Operation<Boolean> original, @Local AbstractFurnaceBlockEntity abe) {
         if (original.call(registryAccess, recipeHolder, singleRecipeInput, nonNullList, i)) {
             if (abe instanceof BlastFurnaceBlockEntity) {
                 ItemStack result = recipeHolder.value().assemble(singleRecipeInput, registryAccess);
@@ -31,8 +31,7 @@ public class AbstractFurnaceBlockEntityMixin {
                     if (abe.getLevel().getRandom().nextInt(3) == 0) {
                         output.grow(1);
                         if (abe.getLevel() instanceof ServerLevel level) {
-                            // find a better sound?
-                            level.playSound(null, abe.getBlockPos(), SoundEvents.ANVIL_HIT, SoundSource.BLOCKS, 0.5f, 5f);
+                            level.playSound(null, abe.getBlockPos(), SoundEvents.FIRECHARGE_USE, SoundSource.BLOCKS, 0.25f, 0.4f);
                         }
                     }
                 }
