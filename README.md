@@ -2,6 +2,8 @@
 
 Blasting Reloaded is a mod for Minecraft Fabric 1.21.11 which gives the Blast furnace a chance to produce an extra output.
 
+Works entirely server-side, requires Fabric API.
+
 Changes:
 
 - Blast furnace speed reduced to normal furnace speeds
