@@ -4,8 +4,12 @@
   "version": "${version}",
   "name": "blasting-reloaded",
   "description": "",
-  "authors": [],
-  "contact": {},
+  "authors": [
+    "SoundsoftheSun"
+  ],
+  "contact": {
+    "homepage": "https://github.com/SoundsoftheSun/Blasting-Reloaded"
+  },
   "license": "MIT",
   "icon": "assets/blasting-reloaded/icon.png",
   "environment": "*",
