@@ -9,4 +9,5 @@ Changes:
   - A sound will play when an extra output is produced
 - Blast furnace replaced with regular furnace in village structures
 - Blast furnace recipe updated
-  - Image
+
+ ![Blast Furnace Recipe: Iron Block x3, Iron Ingot, Furnace, Iron Ingot, Smooth Stone x 3](https://raw.githubusercontent.com/SoundsoftheSun/Blasting-Reloaded/refs/heads/master/img/blast_furnace_recipe.webp)
