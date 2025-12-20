@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "id": "blasting-reloaded",
+  "version": "${version}",
+  "name": "blasting-reloaded",
+  "description": "",
+  "authors": [],
+  "contact": {},
+  "license": "MIT",
+  "icon": "assets/blasting-reloaded/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "fabric-datagen": [
+      "net.soundsofthesun.blastingReloaded.client.BlastingReloadedDataGenerator"
+    ],
+    "client": [
+      "net.soundsofthesun.blastingReloaded.client.BlastingReloadedClient"
+    ],
+    "main": [
+      "net.soundsofthesun.blastingReloaded.BlastingReloaded"
+    ]
+  },
+  "mixins": [
+    "blasting-reloaded.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric-api": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}
