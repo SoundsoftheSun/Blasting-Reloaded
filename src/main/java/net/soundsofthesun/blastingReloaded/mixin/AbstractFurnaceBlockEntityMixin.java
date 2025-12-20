@@ -1,0 +1,37 @@
+package net.soundsofthesun.blastingReloaded.mixin;
+
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import com.llamalad7.mixinextras.sugar.Local;
+import net.minecraft.core.NonNullList;
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.AbstractCookingRecipe;
+import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.SingleRecipeInput;
+import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
+import net.minecraft.world.level.block.entity.BlastFurnaceBlockEntity;
+import org.jspecify.annotations.Nullable;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+
+@Mixin(AbstractFurnaceBlockEntity.class)
+public class AbstractFurnaceBlockEntityMixin {
+
+    @WrapOperation(method = "serverTick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/entity/AbstractFurnaceBlockEntity;burn(Lnet/minecraft/core/RegistryAccess;Lnet/minecraft/world/item/crafting/RecipeHolder;Lnet/minecraft/world/item/crafting/SingleRecipeInput;Lnet/minecraft/core/NonNullList;I)Z"))
+    private static boolean a(RegistryAccess registryAccess, @Nullable RecipeHolder<? extends AbstractCookingRecipe> recipeHolder, SingleRecipeInput singleRecipeInput, NonNullList<ItemStack> nonNullList, int i, Operation<Boolean> original, @Local AbstractFurnaceBlockEntity abe) {
+        if (original.call(registryAccess, recipeHolder, singleRecipeInput, nonNullList, i)) {
+            if (abe instanceof BlastFurnaceBlockEntity) {
+                ItemStack result = recipeHolder.value().assemble(singleRecipeInput, registryAccess);
+                ItemStack output = nonNullList.get(2);
+                if (!(output.isEmpty()) && ItemStack.isSameItemSameComponents(output, result)) {
+                    output.grow(1);
+                }
+                return true;
+            }
+            return true;
+        }
+        return false;
+    }
+
+}
