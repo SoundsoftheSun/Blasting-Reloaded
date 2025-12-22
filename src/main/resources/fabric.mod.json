@@ -3,7 +3,7 @@
   "id": "blasting-reloaded",
   "version": "${version}",
   "name": "blasting-reloaded",
-  "description": "",
+  "description": "Gives the Blast furnace a chance to produce an extra output. Configurable with /blasting",
   "authors": [
     "SoundsoftheSun"
   ],
