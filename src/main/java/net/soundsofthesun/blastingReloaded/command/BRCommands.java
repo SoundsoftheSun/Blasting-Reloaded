@@ -32,7 +32,7 @@ public class BRCommands {
     }
 
     private static int setCookTime(CommandContext<CommandSourceStack> context) {
-        context.getSource().getLevel().setAttached(BRAttachments.COOK_TIME_DATA, new BRCookTime(context.getArgument("cook_time", Integer.class)));
+        context.getSource().getServer().getAllLevels().forEach(level -> level.setAttached(BRAttachments.COOK_TIME_DATA, new BRCookTime(context.getArgument("cook_time", Integer.class))));
         context.getSource().sendSuccess(() -> Component.literal("Blasting Cook Time: "+context.getSource().getLevel().getAttachedOrElse(BRAttachments.COOK_TIME_DATA, BRCookTime.DEFAULT).mult()), false);
         return 1;
     }
@@ -44,7 +44,7 @@ public class BRCommands {
 
 
     private static int setDoublingChance(CommandContext<CommandSourceStack> context) {
-        context.getSource().getLevel().setAttached(BRAttachments.DOUBLING_DATA, new BRDoubling(context.getArgument("denominator", Integer.class)));
+        context.getSource().getServer().getAllLevels().forEach(level -> level.setAttached(BRAttachments.DOUBLING_DATA, new BRDoubling(context.getArgument("denominator", Integer.class))));
         context.getSource().sendSuccess(() -> Component.literal("Blasting Doubling Chance: "+context.getSource().getLevel().getAttachedOrElse(BRAttachments.DOUBLING_DATA, BRDoubling.DEFAULT).denominator()), false);
         return 1;
     }
