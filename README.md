@@ -1,10 +1,10 @@
 # Blast Doubling
 
-Blast Doubling is a mod for Minecraft Fabric 1.21.11 which gives the Blast furnace a chance to produce an extra output.
-
-Works entirely server-side, requires Fabric API.
+Gives the Blast furnace a chance to produce extra outputs.
 
 Configurable by OPs with /blasting
+
+Works server-side, requires Fabric API.
 
 Defaults:
 
