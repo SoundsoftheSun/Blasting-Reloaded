@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "id": "blast-doubling",
   "version": "${version}",
-  "name": "Blast Doubling",
-  "description": "Gives the Blast furnace a chance to produce an extra output. Configurable with /blasting",
+  "name": "Blast Furnace Multiplier",
+  "description": "Gives the Blast furnace a chance to produce extra outputs. Configurable with /blasting",
   "authors": [
     "SoundsoftheSun"
   ],
