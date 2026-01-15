@@ -36,20 +36,18 @@ public class AbstractFurnaceBlockEntityMixin {
     @WrapOperation(method = "serverTick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/entity/AbstractFurnaceBlockEntity;burn(Lnet/minecraft/core/RegistryAccess;Lnet/minecraft/world/item/crafting/RecipeHolder;Lnet/minecraft/world/item/crafting/SingleRecipeInput;Lnet/minecraft/core/NonNullList;I)Z"))
     private static boolean modBurn(RegistryAccess registryAccess, @Nullable RecipeHolder<? extends AbstractCookingRecipe> recipeHolder, SingleRecipeInput singleRecipeInput, NonNullList<ItemStack> nonNullList, int i, Operation<Boolean> original, @Local AbstractFurnaceBlockEntity abe) {
         if (original.call(registryAccess, recipeHolder, singleRecipeInput, nonNullList, i)) {
-            if (abe instanceof BlastFurnaceBlockEntity) {
+            if (abe instanceof BlastFurnaceBlockEntity && abe.getLevel() instanceof ServerLevel level) {
                 ItemStack result = recipeHolder.value().assemble(singleRecipeInput, registryAccess);
                 ItemStack output = nonNullList.get(2);
                 if (!(output.isEmpty()) && ItemStack.isSameItemSameComponents(output, result)) {
-                    int doubling = abe.getLevel().getAttachedOrElse(BRAttachments.DOUBLING_DATA, BRDoubling.DEFAULT).denominator();
+                    int doubling = level.getAttachedOrElse(BRAttachments.DOUBLING_DATA, BRDoubling.DEFAULT).denominator();
                     if (doubling == 1) {
                         output.grow(1);
                     } else if (doubling == 0) {
                         return true;
-                    } else if (abe.getLevel().getRandom().nextInt(doubling) == 0) {
+                    } else if (level.getRandom().nextInt(doubling) == 0) {
                         output.grow(1);
-                        if (abe.getLevel() instanceof ServerLevel level) {
-                            level.playSound(null, abe.getBlockPos(), SoundEvents.FIRECHARGE_USE, SoundSource.BLOCKS, 0.25f, 0.4f);
-                        }
+                        if (level.getAttachedOrElse(BRAttachments.DO_SOUND, true)) level.playSound(null, abe.getBlockPos(), SoundEvents.FIRECHARGE_USE, SoundSource.BLOCKS, 0.25f, 0.4f);
                     }
                 }
             }

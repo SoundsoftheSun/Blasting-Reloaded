@@ -1,5 +1,6 @@
 package net.soundsofthesun.blastdoubling.command;
 
+import com.mojang.brigadier.arguments.BoolArgumentType;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
@@ -27,8 +28,17 @@ public class BRCommands {
                             .executes(BRCommands::getCookTime)
                             .then(Commands.argument("cook_time", IntegerArgumentType.integer(1))
                                     .executes(BRCommands::setCookTime)))
+                    .then(Commands.literal("play_sound")
+                            .then(Commands.argument("boolean", BoolArgumentType.bool())
+                                    .executes(BRCommands::setDoSound)))
             );
         });
+    }
+
+    private static int setDoSound(CommandContext<CommandSourceStack> context) {
+        context.getSource().getServer().getAllLevels().forEach(level -> level.setAttached(BRAttachments.DO_SOUND, context.getArgument("boolean", Boolean.class)));
+        context.getSource().sendSuccess(() -> Component.literal("Blasting Play Sound: "+context.getSource().getLevel().getAttachedOrElse(BRAttachments.DO_SOUND, true)), false);
+        return 1;
     }
 
     private static int setCookTime(CommandContext<CommandSourceStack> context) {

@@ -1,5 +1,6 @@
 package net.soundsofthesun.blastdoubling.attachment;
 
+import com.mojang.serialization.Codec;
 import net.fabricmc.fabric.api.attachment.v1.AttachmentRegistry;
 import net.fabricmc.fabric.api.attachment.v1.AttachmentType;
 import net.minecraft.resources.Identifier;
@@ -21,6 +22,11 @@ public class BRAttachments {
             builder->builder
                     .initializer(()->BRDoubling.DEFAULT)
                     .persistent(BRDoubling.CODEC)
+    );
+
+    public static final AttachmentType<Boolean> DO_SOUND = AttachmentRegistry.createPersistent(
+            Identifier.fromNamespaceAndPath(BlastDoubling.MOD_ID, "play_sound"),
+            Codec.BOOL
     );
 
 
